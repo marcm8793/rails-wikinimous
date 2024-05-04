@@ -1,0 +1,18 @@
+<div class="container d-flex">
+  <div class="row">
+    <div class="col">
+      <%= form_with model: @article do |f| %>
+      <div class="field">
+      <%= f.label :title %>
+      <%= f.text_field :title, class:"form-control mb-2 mr-sm-2 mb-sm-0"%>
+      </div>
+      <br>
+      <div class="field">
+      <%= f.label :content %>
+      <%= f.text_area :content, class:"form-control mb-2 mr-sm-2 mb-sm-0"%>
+      <br>
+      </div>
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>
