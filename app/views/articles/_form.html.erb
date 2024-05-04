@@ -4,15 +4,33 @@
       <%= form_with model: @article do |f| %>
       <div class="field">
       <%= f.label :title %>
-      <%= f.text_field :title, class:"form-control mb-2 mr-sm-2 mb-sm-0"%>
+      <%= f.text_field :title, class:"form-control"%>
       </div>
       <br>
-      <div class="field">
+      <div class="field" id="editor">
       <%= f.label :content %>
-      <%= f.text_area :content, class:"form-control mb-2 mr-sm-2 mb-sm-0"%>
+      <%= f.text_area :content, class:"form-control ace_editor ace_hidpi ace-solarized-light"%>
       <br>
       </div>
       <%= f.submit %>
     <% end %>
   </div>
 </div>
+
+<% content_for(:after_js) do %>
+  <script>
+    $(document).ready(function(){
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/chrome");
+      editor.getSession().setMode("ace/mode/markdown");
+      editor.getSession().setUseWrapMode(true);
+      editor.getSession().setWrapLimitRange(120, 120);
+
+      var textarea = $('#article_content').hide();
+      editor.getSession().on('change', function(){
+        textarea.val(editor.getSession().getValue());
+      });
+    });
+
+  </script>
+<% end %>
